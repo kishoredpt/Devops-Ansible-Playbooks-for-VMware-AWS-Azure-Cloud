@@ -1,0 +1,128 @@
+- hosts: vm-linux
+  vars_files:
+    - "group_vars/{{ostype}}/{{config}}.yml"
+
+  tasks:
+    - name: "Naveen the template I have taken is:"
+      debug:
+        var: vmtemplate
+
+    - name: "PROVISION | Create Linux {{vmname}} from template {{ostype}} {{config}}"
+      vmware_guest:
+       validate_certs: false
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       name: "{{ vmname }}"
+       folder: "{{ folder }}"
+       template: "{{ vmtemplate }}"
+       state: poweredon
+       esxi_hostname: "{{ esxi_host }}"
+      hardware:
+         num_cpus: "{{ cpu }}"
+         memory_mb: "{{ mem_mb }}"
+      disk:
+         - size_gb: "{{ disk }}"
+           type: thin
+           datastore: "{{ datastore }}"
+      register: new_vm
+
+    - name: "NETWORK | Set the IP address and Netmask"
+      local_action:
+       module: vmware_vm_shell
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       vm_id: "{{ vmname }}"
+       vm_username: "{{ v_username }}"
+       vm_password: "{{ v_password }}"
+       vm_shell: /usr/sbin/ifconfig
+       vm_shell_args: " eth0 ipaddress netmask netmaskaddress "
+       vm_shell_env:
+         - "PATH=/bin"
+       vm_shell_cwd: "/tmp"
+       validate_certs: False
+    - name: "NETWORK | add the default gateway"
+      local_action:
+       module: vmware_vm_shell
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       vm_id: "{{ vmname }}"
+       vm_username: "{{ v_username }}"
+       vm_password: "{{ v_password }}"
+       vm_shell: /usr/sbin/route
+       vm_shell_args: " add default gw gatewayaddress "
+       vm_shell_env:
+         - "PATH=/bin"
+       vm_shell_cwd: "/tmp"
+       validate_certs: False
+    - name: "NETWORK | add the nameserver"
+      local_action:
+       module: vmware_vm_shell
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       vm_id: "{{ vmname }}"
+       vm_username: "{{ v_username }}"
+       vm_password: "{{ v_password }}"
+       vm_shell: /usr/bin/echo
+       vm_shell_args: " nameserver ipaddress >> /etc/resolv.conf "
+       vm_shell_env:
+         - "PATH=/bin"
+       vm_shell_cwd: "/tmp"
+       validate_certs: False 
+    - name: "NETWORK | adding IP details to ifcfg-eth0"
+      local_action:
+       module: vmware_vm_shell
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       vm_id: "{{ vmname }}"
+       vm_username: "{{ v_username }}"
+       vm_password: "{{ v_password }}"
+       vm_shell: /usr/bin/echo
+       vm_shell_args: -e "IPADDR=xxxxx\nNETMASK=xxxxx\nGATEWAY=xxxxxx\nTYPE=Ethernet\nBOOTPROTO=static\nONBOOT=yes\nDNS1=xxxxxx\nDEVICE=eth0\nNAME=eth0\nDEFROUTE=yes\n" > /etc/sysconfig/network-scripts/ifcfg-eth0
+       vm_shell_env:
+         - "PATH=/bin"
+       vm_shell_cwd: "/tmp"
+       validate_certs: False
+
+    - name: "NETWORK | adding gateway details to network"
+      local_action:
+       module: vmware_vm_shell
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       vm_id: "{{ vmname }}"
+       vm_username: "{{ v_username }}"
+       vm_password: "{{ v_password }}"
+       vm_shell: /usr/bin/echo
+       vm_shell_args: -e "NETWORKING=yes\nNETWORKING_IPV6=no\nHOSTNAME=xxxxxx\nGATEWAYDEV=eth0\nGATEWAY=xxxxxxx\n" > /etc/sysconfig/network
+       vm_shell_env:
+         - "PATH=/bin"
+       vm_shell_cwd: "/tmp"
+       validate_certs: False
+
+    - name: "NETWORK | restart network"
+      local_action:
+       module: vmware_vm_shell
+       hostname: "{{ vcenter_host }}"
+       username: "{{ vcenter_username }}"
+       password: "{{ vcenter_password }}"
+       datacenter: "{{ datacenter }}"
+       vm_id: "{{ vmname }}"
+       vm_username: "{{ v_username }}"
+       vm_password: "{{ v_password }}"
+       vm_shell: /usr/bin/systemctl
+       vm_shell_args: " restart network "
+       vm_shell_env:
+         - "PATH=/bin"
+       vm_shell_cwd: "/tmp"
+       validate_certs: False
