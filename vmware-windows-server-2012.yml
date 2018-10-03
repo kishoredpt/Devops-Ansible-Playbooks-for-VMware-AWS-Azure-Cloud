@@ -1,0 +1,63 @@
+- name: "VMWARE PROVISIONING | Creating {{ostype}} VM with {{config}} configuration name {{vmname}}"
+  hosts: vm-windows-server2012
+  gather_facts: false
+  connection: local
+  vars_files:
+      - group_vars/{{ostype}}/{{config}}.yml
+  tasks:
+  - name: "PROVISION | Create Windows server 2012 from template"
+    vmware_guest:
+      validate_certs: false
+      hostname: "{{ vcenter_host }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
+      name: "{{ vmname }}"
+      folder: "{{ default_vm_folder }}"
+      template: "{{ vm_template }}"
+      state: poweredon
+      esxi_hostname: "{{ esxi_host }}"
+      hardware:
+        num_cpus: "{{ cpu }}"
+        memory_mb: "{{ mem_mb }}"
+      disk:
+        - size_gb: "{{ disk }}"
+          type: thin
+          datastore: "{{ datastore }}"
+    register: new_vm
+  - name: wait for VMware tools to become available
+    vmware_guest_tools_wait:
+      validate_certs: false
+      hostname: "{{ vcenter_host }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      name: "{{ vmname }}"
+      folder: "/{{ vcenter_datacenter }}/vm/{{ default_vm_folder }}"
+  - name: set IP address for the windows server
+    vmware_vm_shell:
+      validate_certs: false
+      hostname: "{{ vcenter_host }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
+      folder: "/{{ vcenter_datacenter }}/vm/{{ default_vm_folder }}"
+      vm_id: "{{ vmname }}"
+      vm_username: "{{ v_username }}"
+      vm_password: "{{ v_password }}"
+      vm_shell: 'netsh.exe'
+      vm_shell_args: ' interface ip set address name="Ethernet0 2" static ipaddress netmask gateway '
+      vm_shell_cwd: 'C:\Windows\System32'
+  - name: set the DNS for windows server
+    vmware_vm_shell:
+      validate_certs: false
+      hostname: "{{ vcenter_host }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
+      folder: "/{{ vcenter_datacenter }}/vm/{{ default_vm_folder }}"
+      vm_id: "{{ vmname }}"
+      vm_username: "{{ v_username }}"
+      vm_password: "{{ v_password }}"
+      vm_shell: 'netsh.exe'
+      vm_shell_args: ' interface ip set dns name="Ethernet0 2" static address'
+      vm_shell_cwd: 'C:\Windows\System32'
