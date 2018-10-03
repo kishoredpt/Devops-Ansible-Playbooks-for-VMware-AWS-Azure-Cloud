@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Deleting the Virtual Machine
+    vmware_guest:
+        hostname: ipaddress of your host
+        username: xxxxx
+        password: xxxxx
+        name: "{{ vmname }}"
+        state: absent
+        force: yes
+        validate_certs: no
