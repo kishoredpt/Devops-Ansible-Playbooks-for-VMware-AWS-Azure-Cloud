@@ -1,0 +1,20 @@
+---
+- name: Decommision  the ec2 instance
+  hosts: localhost
+  gather_facts: True
+  connection: local
+  vars:
+      instance_ids: "{{ instance_id }}"
+      region: ap-south-1
+      aws_access_key: xxxxxxxxxxxxxxxxxx
+      aws_secret_key: xxxxxxxxxxxxxxxxxxxxxx
+  tasks:
+    - name: stop the Ec2  instance
+      ec2:
+           instance_ids: "{{instance_ids}}"
+           region: "{{region}}"
+           aws_access_key: "{{aws_access_key}}"
+           aws_secret_key: "{{aws_secret_key}}"
+           wait: true
+           state: 'absent'
+      register: ec2_out
