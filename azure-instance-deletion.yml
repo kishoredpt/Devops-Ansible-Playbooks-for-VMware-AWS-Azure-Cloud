@@ -1,0 +1,16 @@
+---
+- name: Decommision azure instance
+  hosts: local
+  gather_facts: True
+  connection: local
+  tasks:
+  - name: delete azure-instance
+    azure_rm_virtualmachine:
+      resource_group: resource group name
+      name: instance name
+      admin_username: xxxxx
+      ssh_password_enabled: false
+      ssh_public_keys:
+        - path: /home/nsangadala/.ssh/authorized_keys
+          key_data: "ssh-rsa public key"
+      state: absent
