@@ -1,0 +1,57 @@
+---
+- name: provision an Ec2 Instance
+  hosts: localhost
+  connection: local
+  tags: provisioning
+  vars:
+      instance_type: t2.micro
+      image: ami-xxxxx
+      security_group: securitygroup name
+      region: ap-south-1
+      gpname: groupname
+      keypair: keypair name
+      state: present
+      number: 1
+      aws_access_key: xxxxxxxxxxxxxxxx
+      aws_secret_key: xxxxxxxxxxxxxxx
+  tasks:
+    - name: Create a Security Group
+      local_action:
+          module: ec2_group
+          name: "{{ security_group }}"
+          description: security group for linux servers
+          region: "{{ region }}"
+          rules:
+            - proto: tcp
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 80
+              to_port: 80
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp
+              from_port: 443
+              to_port: 443
+              cidr_ip: 0.0.0.0/0
+          rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+      register: basic_firewall
+    - name: Launch an Ec2  instance
+      ec2:
+           group: "{{ security_group }}"
+           instance_type: "{{instance_type}}"
+           key_name: "{{keypair}}"
+           image: "{{image}}"
+           aws_access_key: "{{aws_access_key}}"
+           aws_secret_key: "{{aws_secret_key}}"
+           region: "{{region}}"
+           wait: true
+           exact_count: "{{number}}"
+           instance_tags:
+              Name: "{{ instance_name }}"
+           count_tag:
+              Name: "{{gpname}}"
+      register: ec2
+                   
