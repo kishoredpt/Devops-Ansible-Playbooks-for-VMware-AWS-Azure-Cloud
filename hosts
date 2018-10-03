@@ -1,0 +1,11 @@
+[localhost]
+localhost ipaddress
+
+[vm-linux]
+localhost ipaddress
+
+[local]
+localhost ipaddress
+
+[vm-windows-server2012]
+localhost ipaddress
