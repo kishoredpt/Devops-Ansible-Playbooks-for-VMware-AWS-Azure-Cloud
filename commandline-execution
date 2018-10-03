@@ -1,0 +1,34 @@
+ansible commandline execution commands for the playbooks
+
+=========================================
+
+VMWARE vm creation and decommision execution through ansible commandline
+
+vmware-Decommision-server-execution:
+ansible-playbook  vmware-vm-deletion.yml --extra-vars “vmname=windows2012”
+
+vmware-windows-server-creationexecution:
+ansible-playbook windows-server-2012.yml --extra-vars “config=small ostype=windows vmname=windows2012”
+
+vmware-linux-server-creation-execution
+ansible-playbook vmware-RHEl-vm.yml --extra-vars “config=small ostype=linux vmname=rhel-linux”
+
+
+=========================================
+AWS instance creation execution through ansible commandline 
+
+AWS-RHEL-instance-creation-execution:
+ansible-playbook aws-ec2-redhat-linux7.yml
+
+AWS-Ec2instance-deletion-execution:
+ansible-playbook aws-ec2-deletion.yml
+
+=========================================
+
+AZURe instance creation and deletion through ansible commandline
+
+Azure-instance-creation-execution:
+ansible-playbook azure-instance-creation.yml
+
+Azure-instance-deletion-execution:
+ansible-playbook azure-instance-deletion.yml
