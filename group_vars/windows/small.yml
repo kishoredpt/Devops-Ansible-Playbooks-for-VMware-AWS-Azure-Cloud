@@ -1,0 +1,14 @@
+---
+vcenter_host: vmware vsphere host ip address
+vcenter_username: vmware vsphere client username
+vcenter_password: xxxx
+vcenter_datacenter: datacenter name
+default_vm_folder: /vm
+vm_template: template name
+esxi_host: esxi host ip
+cpu: 1
+mem_mb: 2048
+disk: 40
+datastore: datastore name
+v_username: template username
+v_password: template password
