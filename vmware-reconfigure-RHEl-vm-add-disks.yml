@@ -1,0 +1,26 @@
+---
+- hosts: vm-linux-reconfigure
+  connection: local
+  vars_files:
+      - group_vars/vm-linux-reconfigure
+  tasks:
+  - name: "Reconfiguring VM | adding memory cpu and disks"
+    vmware_guest:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        name: "{{ guest_name }}"
+        state: present
+        datacenter: "{{ datacenter_name }}"
+        esxi_hostname: "{{ esxi_hostname }}"
+        hardware:
+           num_cpus: "{{ cpu }}"
+           memory_mb: "{{ mem_mb }}"
+        disk:
+          - size_gb: 50
+            type: thin
+            datastore: "{{ datastore_name }}"
+          - size_gb: 20
+            type: thin
+            datastore: "{{ datastore_name }}"
+        validate_certs: false
