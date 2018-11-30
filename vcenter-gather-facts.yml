@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+   - name: Gather only registered virtual machines
+     vmware_vm_facts:
+         hostname: 10.193.34.216
+         username: nsangadala
+         password: Welcome1
+         vm_type: all
+         validate_certs: no
+     delegate_to: localhost
+     register: vm_facts
