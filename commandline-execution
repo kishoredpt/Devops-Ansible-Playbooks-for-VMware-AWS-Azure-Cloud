@@ -13,7 +13,17 @@ ansible-playbook windows-server-2012.yml --extra-vars “config=small ostype=win
 vmware-linux-server-creation-execution
 ansible-playbook vmware-RHEl-vm.yml --extra-vars “config=small ostype=linux vmname=rhel-linux”
 
+Gathering vcenter facts playbook execution
+ansible-playbook vcenter-datastore-facts.yml 
 
+Gathering vcenter Datastore facts playbook execution 
+ansible-playbook vcenter-datastore-facts.yml
+
+Reconfiguring RHEL linux vm playboook Execution
+ansible-playbook vmware-reconfigure-RHEl-vm-add-disks.yml --extra-vars "guest_name=server-name"
+
+Reconfiguring Windows Server 2012 vm playbook execution
+ansible-playbook vm-windows-server-2012-reconfigure.yml --extra-vars "guest_name=server-name"
 =========================================
 AWS instance creation execution through ansible commandline 
 
