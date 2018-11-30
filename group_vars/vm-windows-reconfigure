@@ -1,0 +1,9 @@
+---
+vcenter_host: xxxxxx
+vcenter_username: xxxxxx
+vcenter_password: xxxxxx
+datacenter_name: xxxxxx
+esxi_hostname: xxxxxx
+datastore_name: xxxxxx
+cpu: 4
+mem_mb: 4096

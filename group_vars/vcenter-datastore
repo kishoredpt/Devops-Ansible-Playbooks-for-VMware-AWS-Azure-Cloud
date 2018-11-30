@@ -1,0 +1,5 @@
+---
+vcenter_host: xxxxx
+vcenter_username: xxx
+vcenter_password: xxx
+datacenter_name: xxx
