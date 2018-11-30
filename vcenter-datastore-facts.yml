@@ -1,0 +1,14 @@
+---
+- hosts: vcenter-datastore
+  connection: local
+  vars_files:
+      - group_vars/vcenter-datastore
+  tasks:
+  - name: "Gathering Datastore facts"
+    vmware_datastore_facts:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ datacenter_name }}"
+        validate_certs: false
+    register: facts
