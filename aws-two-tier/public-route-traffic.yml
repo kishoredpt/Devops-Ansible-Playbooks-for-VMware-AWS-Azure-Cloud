@@ -5,19 +5,19 @@
   connection: local
   vars:
       region: ap-south-1
-      gpname: EC2Admin
-      keypair: ansible
+      gpname: groupname
+      keypair: keypairname
   tasks:
     - name: route IGW
       ec2_vpc_route_table:
-        vpc_id: vpc-04d22970ca8dca51c
+        vpc_id: vpc id
         region: ap-south-1
-        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
-        aws_secret_key: iGjpgdDSURerhFszIeJWtaIO+e0MS65wbJdj6rVr
-        subnets: subnet-0952aab3384665ff3
+        aws_access_key: your aws access key
+        aws_secret_key: your aws secret access key
+        subnets: public subnet id
         routes: 
           - dest: 0.0.0.0/0
-            gateway_id: igw-01e451ae7ee2602fa
+            gateway_id: igw id
         tags:
           Name: networktest-route
     #update the CIDR address in the SSH port section
@@ -25,10 +25,10 @@
       ec2_group: 
         name: app-server
         description: App-Server security group
-        vpc_id: vpc-04d22970ca8dca51c
+        vpc_id: vpc id
         region: ap-south-1
-        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
-        aws_secret_key: iGjpgdDSURerhFszIeJWtaIO+e0MS65wbJdj6rVr
+        aws_access_key: your aws acccess key
+        aws_secret_key: your aws secret access key
         rules:
           - proto: tcp
             ports: 
