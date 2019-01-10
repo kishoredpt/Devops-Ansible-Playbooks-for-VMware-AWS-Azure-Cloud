@@ -30,7 +30,7 @@
          instance_tags:
               Name: "{{ instance_name }}"
          group_id: your gorup_id
-         vpc_subnet_id: your subnet id
+         vpc_subnet_id: your public subnet id
          key_name: "{{keypair}}"
       register: ec2
 
