@@ -8,12 +8,12 @@
       image: ami-5b673c34
       security_group: app-server
       region: ap-south-1
-      gpname: EC2Admin
-      keypair: ansible
+      gpname: geoupname
+      keypair: keypair name
       state: present
       number: 1
-      aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
-      aws_secret_key: iGjpgdDSURerhFszIeJWtaIO+e0MS65wbJdj6rVr
+      aws_access_key: your access key
+      aws_secret_key: your secret access key
   tasks:
     - name: Create Application Server instance
       ec2:
@@ -29,8 +29,8 @@
            Name: "{{gpname}}" 
          instance_tags:
               Name: "{{ instance_name }}"
-         group_id: sg-0c49f0a2f40187085
-         vpc_subnet_id: subnet-0952aab3384665ff3
+         group_id: your gorup_id
+         vpc_subnet_id: your subnet id
          key_name: "{{keypair}}"
       register: ec2
 
