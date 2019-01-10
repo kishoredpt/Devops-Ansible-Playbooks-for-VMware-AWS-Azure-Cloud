@@ -1,0 +1,17 @@
+---
+- name: two tier server deployment in aws
+  hosts: localhost
+  connection: local
+  vars:
+      instance_type: t2.micro
+      image: ami-5b673c34
+      security_group: app-server
+      region: ap-south-1
+      gpname: EC2Admin
+      keypair: ansible
+      state: present
+      number: 1
+      aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+      aws_secret_key: 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
+  roles:
+  - test-aws-two-tier

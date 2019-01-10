@@ -1,0 +1,19 @@
+---
+- name: Create Database server Intsance
+  ec2:
+         group: app-server
+         instance_type: t2.micro
+         image: ami-5b673c34
+         aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+         aws_secret_key: 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
+         region: ap-south-1
+         wait: true
+         exact_count: 1
+         count_tag:
+           Name: EC2Admin
+         instance_tags:
+              Name: db-server
+         vpc_subnet_id: subnet-02f36f032f9889b87
+         key_name: ansible
+  register: ec2
+

@@ -1,0 +1,35 @@
+---
+- name: Public Subnet
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  vars:
+      security_group: ansible
+      region: ap-south-1
+      gpname: EC2Admin
+      keypair: ansible
+      aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+      aws_secret_key: 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
+  tasks:
+    - name: associate subnet to the VPC
+      ec2_vpc_subnet:
+        state: present
+        vpc_id: vpc-04d22970ca8dca51c
+        region: ap-south-1
+        cidr: 10.22.0.0/24
+        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+        aws_secret_key: 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
+        map_public: yes
+        resource_tags:
+            Name: Public_Subnet_Applicationserver
+      register: subnet
+    - name: create IGW
+      ec2_vpc_igw:
+        vpc_id: vpc-04d22970ca8dca51c
+        region: ap-south-1
+        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+        aws_secret_key: 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
+        state: "present"
+        tags:
+           Name: internet_gateway
+      register: igw

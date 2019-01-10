@@ -1,0 +1,31 @@
+---
+- name: route IGW
+  ec2_vpc_route_table:
+        vpc_id: vpc-00524a5dd45993301
+        region: ap-south-1
+        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+        aws_secret_key: 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
+        subnets: subnet-048c24f35b178ad1e
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: igw-03f36b03fc5e147da
+        tags:
+          Name: networktest-route
+- name: Create security group
+  ec2_group:
+        name: app-server
+        description: App-Server security group
+        vpc_id: vpc-00524a5dd45993301
+        region: ap-south-1
+        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+        aws_secret_key: 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
+        rules:
+          - proto: tcp
+            ports:
+            - 80
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            ports:
+            - 22
+            cidr_ip: 0.0.0.0/0
+  register: security_group

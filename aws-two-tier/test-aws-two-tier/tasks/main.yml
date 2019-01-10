@@ -1,0 +1,8 @@
+---
+# tasks file for test-aws-two-tier
+- import_tasks: vpc.yml
+- import_tasks: public-subnet.yml
+- import_tasks: private-subnet.yml
+- import_tasks: route1.yml
+- import_tasks: app-ec2.yml
+- import_tasks: db-ec2.yml

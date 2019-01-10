@@ -1,0 +1,21 @@
+---
+- name: setup NAT gateway
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  vars:
+      security_group: ansible
+      region: ap-south-1
+      gpname: EC2Admin
+      keypair: ansible
+      aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+      aws_secret_key: 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
+  tasks:
+    - name: Create new nat gateway and allocate new EIP if a nat gateway does not yet exist in the subnet.
+      ec2_vpc_nat_gateway:
+        state: present
+        subnet_id: subnet-092b1dac97bd1e15b
+        wait: yes
+        region: ap-south-1
+        if_exist_do_not_create: true
+      register: new_nat_gateway

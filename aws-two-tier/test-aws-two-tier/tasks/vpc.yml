@@ -1,0 +1,10 @@
+---
+- name: create VPC
+  ec2_vpc_net:
+        name: networktest-vpc
+        state: present
+        region: ap-south-1
+        cidr_block: 10.22.0.0/16
+        aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+        aws_secret_key: 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
+  register: vpc

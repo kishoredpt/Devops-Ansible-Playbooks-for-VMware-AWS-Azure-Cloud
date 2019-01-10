@@ -1,0 +1,37 @@
+---
+- name: provision an Application server Ec2 Instance
+  hosts: localhost
+  connection: local
+  tags: provisioning
+  vars:
+      instance_type: t2.micro
+      image: ami-5b673c34
+      security_group: app-server
+      region: ap-south-1
+      gpname: EC2Admin
+      keypair: ansible
+      state: present
+      number: 1
+      aws_access_key: AKIAJCIL4HV3EJ5DN3QQ
+      aws_secret_key: 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
+  tasks:
+    - name: Create Application Server instance
+      ec2:
+         group: "{{ security_group }}"
+         instance_type: "{{instance_type}}"
+         image: "{{image}}"
+         aws_access_key: "{{aws_access_key}}"
+         aws_secret_key: "{{aws_secret_key}}"
+         region: "{{region}}"
+         wait: true
+         exact_count: "{{number}}"
+         count_tag:
+           Name: "{{gpname}}" 
+         instance_tags:
+              Name: "{{ instance_name }}"
+         group_id: sg-0c49f0a2f40187085
+         vpc_subnet_id: subnet-0952aab3384665ff3
+         key_name: "{{keypair}}"
+      register: ec2
+
+                   
