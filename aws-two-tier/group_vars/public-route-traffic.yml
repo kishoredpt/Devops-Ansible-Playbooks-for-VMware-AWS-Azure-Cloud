@@ -1,10 +1,10 @@
 ---
 security_group_name: ansible
 region_name: ap-south-1
-IAM _groupname: Ansible_AWS
+IAM _groupname: IAM group name
 keypair_name: test-key
-access_key: AKIAI2XSLY77MUYRA3YA
-secret_key: 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
+access_key: access key
+secret_key: secret key
 security_group_name_for_app_server: app-server-security-group
 requestor_name: NAVEEN
 env_name: DEV
@@ -12,6 +12,6 @@ resource_name: PUBLIC-SUBNET-ROUTE-TABLE-APP-SERVER
 back_up: NA
 business_hours: EST 00-00
 automate: OPT OUT
-owner: CLOUD-HJOSHI@MFXSERVICES.COM
+owner: owner mail address
 cost_center_name: CLOUD
 customer_name: MFX
