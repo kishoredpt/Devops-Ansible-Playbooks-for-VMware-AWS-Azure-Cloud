@@ -1,0 +1,18 @@
+---
+security_group_name: bastion_security_group
+region_name: ap-south-1
+IAM _groupname: Ansible_AWS
+keypair_name: test-key
+access_key: AKIAI2XSLY77MUYRA3YA
+secret_key: 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
+cidr: 10.22.1.0/24
+Private_Subnet_name: Private_Subnet_DB__server
+requestor_name: NAVEEN
+env_name: DEV
+resource_name: PRIVATE-SUBNET-DB-SERVERS
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: CLOUD-HJOSHI@MFXSERVICES.COM
+cost_center_name: CLOUD
+customer_name: MFX

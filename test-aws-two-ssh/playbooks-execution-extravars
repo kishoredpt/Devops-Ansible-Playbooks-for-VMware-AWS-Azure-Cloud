@@ -1,0 +1,29 @@
+#Execution of ansible playbookss with extra-vars
+
+1. Executing vpc.yml 
+
+ansible-playbook vpc.yml 
+
+2. Executing public-subnet.yml with --extra-vars
+
+ansible-playbook public-subnet.yml --extra-vars "vpc_id= 5"
+
+3. Executing private-subnet.yml with --extra-vars
+
+ansible-playbook private-subnet.yml --extra-vars "vpc_id= "
+
+4.Executing public-route-traffic.yml with extra vars
+
+ansible-playbook public-route-traffic.yml --extra-vars "vpc_id=   igw_id=  public_subnet_id= "
+
+5. EXEcting app-ec2.yml with extra vars
+
+ansible-playbook app-ec2.yml --extra-vars "instance_name=app-server group_id= vpc_subnet_id=  "
+
+6. EXEcting db-ec2.yml with extra vars
+
+ansible-playbook db-ec2.yml --extra-vars "instance_name= vpc_subnet_id=  "
+
+7. EXEcting nat-gateway.yml with extra vars
+
+ansible-playbook nat-gateway.yml  --extra-vars "public_subnet_id= "

@@ -1,0 +1,16 @@
+---
+aws_access_key: AKIAI2XSLY77MUYRA3YA
+aws_secret_key: 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
+IAM_groupname: Ansible_AWS
+keypair_name: test-key
+security_group: bastion_security_group
+instance_name: db-server
+requestor_name: NAVEEN
+env_name: DEV
+resource_name: DB-SERVER
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: CLOUD-HJOSHI@MFXSERVICES.COM
+cost_center_name: CLOUD
+customer_name: MFX

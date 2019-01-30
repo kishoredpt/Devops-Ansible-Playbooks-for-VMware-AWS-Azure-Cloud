@@ -1,0 +1,19 @@
+---
+security_group_name: bastion_security_group
+instance_name: bastion-host
+keypair_name: test-key
+aws_access_key: AKIAI2XSLY77MUYRA3YA
+aws_secret_key: 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
+IAM_groupname: Ansible_AWS
+region_name: ap-south-1
+image_name: ami-5b673c34
+instance_size: t2.micro
+requestor_name: NAVEEN
+env_name: DEV
+resource_name: BASTION-HOST
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: CLOUD-HJOSHI@MFXSERVICES.COM
+cost_center_name: CLOUD
+customer_name: MFX

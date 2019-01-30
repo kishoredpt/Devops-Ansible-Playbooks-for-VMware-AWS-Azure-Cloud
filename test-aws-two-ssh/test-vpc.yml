@@ -1,0 +1,50 @@
+---
+- name: setup vpc
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  vars_files:
+      - group_vars/vpc.yml
+  vars:
+      security_group: "{{ securitygroup }}"
+      region: "{{ region_name }}"
+      gpname: "{{ IAM_groupname }}"
+      keypair: "{{ keypair_name }}"
+      aws_access_key: "{{ access_key }}"
+      aws_secret_key: "{{ secret_key }}"
+  tasks:
+    - name: Create a new ec2 key
+      ec2_key:
+          name: test-key
+          region: ap-south-1
+      register: ec2_key_result
+
+    - debug:
+        msg: "my aws key is: {{ec2_key_result.key.name}}"
+
+    - name: save the private key
+      copy: content="{{ ec2_key_result.key.private_key }}" dest="./test-key.pem" mode=0600
+      when: ec2_key_result.changed
+
+    - name: create VPC
+      ec2_vpc_net:
+        name: "{{ vpc_name }}"
+        state: present
+        region: "{{ region_name }}"
+        cidr_block: "{{ cidr }}"
+        aws_access_key: "{{ access_key }}"
+        aws_secret_key: "{{ secret_key }}"
+        tags:
+          NAME: "{{ requestor_name }}"
+          ENVIRONMENT: "{{ env_name }}"
+          RESOURCE ID: "{{ resource_name }}"
+          BACK UP: "{{ back_up }}"
+          BUSINESS HOURS: "{{ business_hours }}"
+          AUTOMATE: "{{ automate }}"
+          OWNER: "{{ owner }}"
+          COST CENTER: "{{ cost_center_name }}"
+          CUSTOMER: "{{ customer_name }}"
+      register: vpcid
+
+    - debug:
+        msg: "vpc id is: {{vpcid.vpc.id}}"
