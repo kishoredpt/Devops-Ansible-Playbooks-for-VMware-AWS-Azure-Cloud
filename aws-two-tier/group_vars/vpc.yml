@@ -1,10 +1,10 @@
 ---
 securitygroup: ansible
 region_name: ap-south-1
-IAM_groupname: Ansible_AWS
-keypair_name: test-key
-access_key: AKIAI2XSLY77MUYRA3YA
-secret_key: 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
+IAM_groupname: IAM group name
+keypair_name: key name
+access_key: access key
+secret_key: secret key 
 cidr: 10.22.0.0/16
 requestor_name: NAVEEN
 env_name: DEV
@@ -12,6 +12,6 @@ resource_name: VPC-TWO-TIER-APPLICATION
 back_up: NA
 business_hours: EST 00-00
 automate: OPT OUT
-owner: CLOUD-HJOSHI@MFXSERVICES.COM
+owner: mail address
 cost_center_name: CLOUD
 customer_name: MFX
