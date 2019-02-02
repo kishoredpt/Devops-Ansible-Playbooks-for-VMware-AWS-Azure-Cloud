@@ -1,0 +1,29 @@
+#Execution of ansible playbookss with extra-vars
+
+1. Executing vpc.yml 
+
+ansible-playbook vpc.yml --extra-vars "vpc_name=two-tier-vpc"
+
+2. Executing public-subnet.yml with --extra-vars
+
+ansible-playbook public-subnet.yml --extra-vars "vpc_id= "
+
+3. Executing private-subnet.yml with --extra-vars
+
+ansible-playbook private-subnet.yml --extra-vars "vpc_id= "
+
+4.Executing public-route-traffic.yml with extra vars
+
+ansible-playbook public-route-traffic.yml --extra-vars "vpc_id=   igw_id=  public_subnet_id= "
+
+5. Executing app-ec2.yml with extra vars
+
+ansible-playbook app-ec2.yml --extra-vars "instance_name=app-server group_id=public security group id vpc_subnet_id= public subnet id "
+
+6. Executing db-ec2.yml with extra vars
+
+ansible-playbook db-ec2.yml --extra-vars "instance_name= vpc_subnet_id= private subnet id  "
+
+6. Executing bastion-test.yml with extra vars
+
+ansible-playbook bastion-test.yml --extra-vars "instance_name= vpc_subnet_id=public-subnet-id "

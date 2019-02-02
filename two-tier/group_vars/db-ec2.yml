@@ -1,0 +1,16 @@
+---
+aws_access_key: access key
+aws_secret_key: secret key
+IAM_groupname: IAM group name
+keypair_name: key name
+security_group: bastion_security_group
+instance_name: db-server
+requestor_name: NAVEEN
+env_name: DEV
+resource_name: DB-SERVER
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: owner mail address
+cost_center_name: CLOUD
+customer_name: MFX

@@ -1,0 +1,15 @@
+---
+aws_access_key: your access key
+aws_secret_key: your secret key
+IAM_groupname: iam group name
+keypair_name: key name
+instance_name: app-server
+requestor_name: rquestor name
+env_name: DEV
+resource_name: APP-SERVER
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: owner mail address
+cost_center_name: CLOUD
+customer_name: customer name

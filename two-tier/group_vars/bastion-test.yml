@@ -1,0 +1,19 @@
+---
+security_group_name: bastion_security_group
+instance_name: bastion-host
+keypair_name: key name
+aws_access_key: access key
+aws_secret_key: secret key
+IAM_groupname: iam group name
+region_name: ap-south-1
+image_name: ami-5b673c34
+instance_size: t2.micro
+requestor_name: requestor name
+env_name: DEV
+resource_name: BASTION-HOST
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: owner mail address
+cost_center_name: CLOUD
+customer_name: customer name

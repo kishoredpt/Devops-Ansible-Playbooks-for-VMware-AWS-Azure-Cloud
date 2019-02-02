@@ -1,0 +1,17 @@
+---
+security_group_name: ansible
+region_name: ap-south-1
+IAM _groupname: IAM group name
+keypair_name: test-key
+access_key: access key
+secret_key: secret key
+security_group_name_for_app_server: app-server-security-group
+requestor_name: requestor name
+env_name: DEV
+resource_name: PUBLIC-SUBNET-ROUTE-TABLE-APP-SERVER
+back_up: NA
+business_hours: EST 00-00
+automate: OPT OUT
+owner: owner mail address
+cost_center_name: CLOUD
+customer_name: customer name
