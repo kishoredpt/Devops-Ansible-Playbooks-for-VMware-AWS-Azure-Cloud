@@ -11,7 +11,7 @@
       admin_username: xxxxxx
       ssh_password_enabled: false
       ssh_public_keys:
-        - path: /home/nsangadala/.ssh/authorized_keys
+        - path: /home/username/.ssh/authorized_keys
           key_data: "ssh-rsa public key"
       image:
         offer: CentOS
