@@ -12,3 +12,10 @@
   --> Ansible Playbook to Create Database Server (EC2) instance by using VPC-database server subnet (private subnet) in AWS
   --> Ansible Playbook to Create Bastion host (EC2) instance by using public subnet id  in AWS 
 
+executing the two-tier application playbook by using the below commnad
+
+ansible-playbook vpc.yml --extra-vars "vpc_name=test-name" -vvv
+
+5. aws-ec2-deletion.yml --> Playbook Execution for the playbook to delete multiple Ec2 Instances at a time
+
+ansible-playbook aws-ec2-deletion.yml --extra-vars='{"instance_ids": [i-xxxxx,i-xxxx,i-xxxx]}' -vvv
